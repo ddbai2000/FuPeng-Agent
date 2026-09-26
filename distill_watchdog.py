@@ -44,10 +44,14 @@ def main():
     bp = os.path.join(HERE, "books", "pending")
     if os.path.isdir(bp):
         for fn in sorted(os.listdir(bp)):
+            if fn.upper().startswith("README"):
+                continue
             if os.path.splitext(fn)[1].lower() not in BOOK_EXT:
                 continue
             fp = os.path.join(bp, fn)
             if not os.path.isfile(fp):
+                continue
+            if os.path.getsize(fp) < 2000:   # 说明文件/残缺文件，真书不会这么小
                 continue
             books.append(fp)
 
