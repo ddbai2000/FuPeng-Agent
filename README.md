@@ -148,7 +148,7 @@
 
 ## 许可证
 
-本框架采用 **CC BY-NC-SA 4.0** 许可证——你可以自由分享和改编，但需署名、非商业用途、并以相同方式共享。
+本框架采用 **CC BY-NC-SA 4.0** 许可证——你可以自由分享和改编，但需署名、非商业用途，并以相同方式共享。
 
 ---
 
@@ -165,55 +165,3 @@
 ---
 
 *"在一个关键的时间周期里，帮你看到自己看不到的东西。"* —— 付鹏
-
----
-
-## 管线运维（采集 → ASR → 蒸馏 → 定时更新）
-
-### 数据源
-| 平台 | 方式 | 状态 |
-|---|---|---|
-| YouTube | 官方频道「付鹏的财经世界」`UCb_4xq1KgaYkGtxpjkoZrtQ` + 关键词搜索（代理 10808） | ✅ 自动 |
-| B站 | UP主 UID `662660667` 空间页 + 搜索页解析 BV（直连，无cookie） | ✅ 自动（412风控时降级搜索兜底） |
-| 抖音 | 网页版 JS 防护需 cookies；**人工投喂**：把链接写入 `pending_links.txt` | ⚠️ 半自动 |
-
-### 目录结构
-```
-H:\Agent\FuPeng-Agent\            # 仓库根（顶层只有 README.md）
-└─ FuPeng-Agent\                   # 管线代码与数据（GitHub 同名子目录）
-   ├─ config.json               # 平台源/代理/线程/路径
-   ├─ state.json                # 全量状态: seen / asr_jobs(running→done) / distilled
-   ├─ collect_and_transcribe.py # 采集+下载+启动ASR（cron Job1 每日跑）
-   ├─ asr_worker.py             # ASR 子进程（faster-whisper small int8，独立存活）
-   ├─ distill_watchdog.py       # 蒸馏看门狗（cron Job2，列出待蒸馏+标记完成）
-   ├─ pending_links.txt         # 抖音/手动投喂链接（一行一个，#注释）
-   ├─ cookies/                  # douyin_cookies.txt / bili_cookies.txt（可选，不入库）
-   ├─ books/pending/            # 投喂书籍（pdf/docx/txt/epub）
-   ├─ audio/                    # 下载的 .webm（不入库）
-   └─ transcripts/              # ASR 转录 .txt（不入库）
-```
-
-### 定时任务（3 个 Job）
-- **Job1（采集+ASR，每日 09:00，静默）**：`fupeng_collect.sh` → `collect_and_transcribe.py`。发现新视频→下载→启动 ASR（最多 2 并发，超额入队下次转）。**无新视频时 stdout 为空 = 不推送用户**（watchdog 静默）。
-- **Job2（蒸馏看门狗，每日 12:00，静默）**：`fupeng_distill.sh` → `distill_watchdog.py` 列出"转录完成未蒸馏"的视频 + `books/pending/` 的书籍；agent（挂 fupeng-distill / book-research 技能）逐个蒸馏成技能后，调 `--mark-done <key>` 标记。全部完成输出 `NO_WORK`。
-- **Job3（每周摘要，每周一 09:00，必推送）**：agent 任务。重跑采集脚本刷新队列（幂等）→ 多源扫描付鹏近 7 天最新言论（B站直连搜索 / YouTube 代理搜索 / 抖音人工投喂 pending_links / web 检索）→ 对照 `fupeng-perspective` 路由总表做框架对齐 → 推送周报给用户（新视频 + 最新言论 + 框架对齐 + 蒸馏积压）。**空内容也推送"本周无新动态"心跳，不静默。**
-
-### 手动命令
-```bat
-REM 交互跑采集（实时日志）
-H:\Agent\ft-distill\.venv\Scripts\python.exe H:\Agent\FuPeng-Agent\FuPeng-Agent\collect_and_transcribe.py --dry-run
-
-REM 看当前待蒸馏清单
-H:\Agent\ft-distill\.venv\Scripts\python.exe H:\Agent\FuPeng-Agent\FuPeng-Agent\distill_watchdog.py
-```
-
-### 蒸馏规范
-沿用 book-to-skill 结构：`SKILL.md`（frontmatter + 心智模型 M1..Mn + 决策启发式 + 易混辨析）+ `references/source-*.txt`（关键论点带时间戳）。新书/新视频先读完全文再动手，避免与已有技能重复（现有技能清单见下）。
-
-### 现有技能（去重基准）
-super-cycle-gears / liquidity-shrink-circle / deglobal-mirror-cycle / debt-tax-demographic-cycle / china-numerator-us-denominator / tech-cycle-credit-shock / cash-cow-spread-flip / realty-k-shrink-core / crypto-major-asset / fed-era-shift / witness-countercurrent / ai-capex-proof-period
-
-**综合总纲（对齐目标）**：`fupeng-perspective`（lianyanshe-ai 仓库版，入口总纲 + 模型6 情景证伪方法论）。新蒸馏的视频/书籍若与其路由表某主题重合 → 并入对应单主题 skill（见该 skill 路由总表），并把增量同步进 `fupeng-perspective` 对应模型的指针行，保持仓库版与自蒸馏版逐步对齐。
-
-### 书籍投喂
-把书（pdf/docx/txt/epub）丢进 `books/pending/`，Job2 看门狗会列出；agent 用 ocr-and-documents / pdf 技能提取文本后蒸馏。

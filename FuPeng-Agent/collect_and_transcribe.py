@@ -149,6 +149,51 @@ def collect_pending_links(cfg):
             f.write(f"\n# processed at {datetime.datetime.now().isoformat()}\n")
     return out
 
+def discover_douyin(cfg, state, dry_run=False):
+    """抖音：自动发现付鹏最新短视频，自动刷新 cookie，不再依赖人工投喂。
+
+    1) 自动 cookie 刷新：douyin_cookie_refresh.refresh_cookies()（Playwright，匿名 ttwid/s_v_web_id）
+    2) 发现：优先创作者主页（sec_uid）；风控/验证码时记录日志并返回空，不阻塞管线
+    pending_links.txt 降级为兜底（留给人工/第三方链接）
+    提示：抖音对匿名访问风控较严，若 yt-dlp 下载仍报 "Fresh cookies"，
+    把一份登录态 cookie（含 sessionid）导出到 cookies/douyin_cookies.txt 即可解锁下载。
+    """
+    d = cfg["sources"].get("douyin", {})
+    found = []
+    sec = d.get("sec_uid", "")
+    try:
+        import douyin_cookie_refresh as dcr
+    except Exception as e:
+        log(f"  douyin_cookie_refresh 导入失败: {e}")
+        return found
+    # 1) 自动刷新 cookie（浏览器，dry-run 跳过以省时）
+    if not dry_run and d.get("auto_cookie_refresh", True):
+        try:
+            dcr.refresh_cookies()
+        except Exception as e:
+            log(f"  抖音 cookie 自动刷新失败(沿用现有文件): {e}")
+    # 2) 发现新视频
+    try:
+        limit = int(d.get("limit", 15))
+        items = []
+        if sec:
+            items = dcr.discover(creator_only=True, sec_uid=sec, limit=limit)
+        if not items:
+            for q in d.get("search_queries", ["付鹏"]):
+                items += dcr.discover(q, limit=8)
+        for it in items:
+            m = re.search(r"/video/(\d+)", it.get("url", ""))
+            if not m:
+                continue
+            vid = m.group(1)
+            key = f"douyin:{vid}"
+            if key not in state["seen"] and key not in [x["key"] for x in found]:
+                found.append({"key": key, "url": it["url"], "title": it.get("title", "") or "(抖音短视频)", "platform": "douyin"})
+    except Exception as e:
+        log(f"  抖音发现异常(风控/验证码/无网络，不阻塞管线): {e}")
+    return found
+
+
 def download(cfg, item, dry_run=False):
     """下载 bestaudio → audio/<key>.webm，返回本地路径或 None。"""
     key = item["key"]
@@ -166,7 +211,7 @@ def download(cfg, item, dry_run=False):
     if item["platform"] == "bilibili" and os.path.exists(os.path.join(HERE, bcookies)):
         args += ["--cookies", os.path.join(HERE, bcookies)]
     dc = cfg["sources"]["douyin"].get("cookie_file")
-    if item["platform"] in ("manual",) and "douyin" in item.get("url", "") and os.path.exists(os.path.join(HERE, dc)):
+    if ("douyin" in item.get("url", "") or item["platform"] == "douyin") and os.path.exists(os.path.join(HERE, dc)):
         args += ["--cookies", os.path.join(HERE, dc)]
     rc, out, err = run_ytdlp(args, cfg, proxy=proxy, timeout=900)
     if rc != 0:
@@ -235,6 +280,15 @@ def main():
     except Exception as e:
         log(f"bilibili 发现异常: {e}")
     try:
+        # 抖音自动化：Playwright 自动刷新匿名 cookie + 创作者主页自动发现（无人工投喂）
+        # 风控/验证码/无登录态时返回 0 条并记录日志，不阻塞管线
+        dy_items = discover_douyin(cfg, state, dry_run=dry_run)
+        new_items += dy_items
+        log(f"douyin 自动发现 {len(dy_items)} 条（风控触发时为 0，属正常降级）")
+    except Exception as e:
+        log(f"douyin 发现异常: {e}")
+    try:
+        # pending_links 降级为兜底（第三方链接/登录态解锁前的手工补充）
         new_items += collect_pending_links(cfg)
     except Exception as e:
         log(f"pending_links 异常: {e}")

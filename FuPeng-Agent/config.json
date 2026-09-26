@@ -28,8 +28,12 @@
       "cookie_file": "cookies/bili_cookies.txt"
     },
     "douyin": {
+      "sec_uid": "MS4wLjABAAAAy5ym9wTQRRPyS8wY1UA4SXkgUkw7gZyg1Pkws_ppDtO2z0uOpWjbUWassaacpe8C",
       "cookie_file": "cookies/douyin_cookies.txt",
-      "note": "无cookie无法下载; 把链接写入 pending_links.txt (一行一个, #开头为注释), collect.py 自动读取"
+      "auto_cookie_refresh": true,
+      "search_queries": ["付鹏", "付鹏 财经世界"],
+      "limit": 15,
+      "note": "已自动化: Playwright 自动刷新匿名 cookie(ttwid/s_v_web_id) + 创作者主页(sec_uid)发现付鹏最新短视频; pending_links.txt 降级为兜底。风控/验证码时自动降级不阻塞管线; 若 yt-dlp 下载仍报 Fresh cookies, 导出登录态 cookie(含 sessionid) 覆盖 cookies/douyin_cookies.txt 即可解锁。"
     }
   },
   "pending_links_file": "pending_links.txt"
