@@ -179,17 +179,18 @@
 
 ### 目录结构
 ```
-H:\Agent\fu-peng-agent\
-├─ config.json               # 平台源/代理/线程/路径
-├─ state.json                # 全量状态: seen / asr_jobs(running→done) / distilled
-├─ collect_and_transcribe.py # 采集+下载+启动ASR（cron Job1 每日跑）
-├─ asr_worker.py             # ASR 子进程（faster-whisper small int8，独立存活）
-├─ distill_watchdog.py       # 蒸馏看门狗（cron Job2，列出待蒸馏+标记完成）
-├─ pending_links.txt         # 抖音/手动投喂链接（一行一个，#注释）
-├─ cookies/                  # douyin_cookies.txt / bili_cookies.txt（可选）
-├─ books/pending/            # 投喂书籍（pdf/docx/txt/epub）
-├─ audio/                    # 下载的 .webm
-└─ transcripts/              # ASR 转录 .txt
+H:\Agent\FuPeng-Agent\            # 仓库根（顶层只有 README.md）
+└─ FuPeng-Agent\                   # 管线代码与数据（GitHub 同名子目录）
+   ├─ config.json               # 平台源/代理/线程/路径
+   ├─ state.json                # 全量状态: seen / asr_jobs(running→done) / distilled
+   ├─ collect_and_transcribe.py # 采集+下载+启动ASR（cron Job1 每日跑）
+   ├─ asr_worker.py             # ASR 子进程（faster-whisper small int8，独立存活）
+   ├─ distill_watchdog.py       # 蒸馏看门狗（cron Job2，列出待蒸馏+标记完成）
+   ├─ pending_links.txt         # 抖音/手动投喂链接（一行一个，#注释）
+   ├─ cookies/                  # douyin_cookies.txt / bili_cookies.txt（可选，不入库）
+   ├─ books/pending/            # 投喂书籍（pdf/docx/txt/epub）
+   ├─ audio/                    # 下载的 .webm（不入库）
+   └─ transcripts/              # ASR 转录 .txt（不入库）
 ```
 
 ### 定时任务（3 个 Job）
@@ -200,10 +201,10 @@ H:\Agent\fu-peng-agent\
 ### 手动命令
 ```bat
 REM 交互跑采集（实时日志）
-H:\Agent\ft-distill\.venv\Scripts\python.exe H:\Agent\fu-peng-agent\collect_and_transcribe.py --dry-run
+H:\Agent\ft-distill\.venv\Scripts\python.exe H:\Agent\FuPeng-Agent\FuPeng-Agent\collect_and_transcribe.py --dry-run
 
 REM 看当前待蒸馏清单
-H:\Agent\ft-distill\.venv\Scripts\python.exe H:\Agent\fu-peng-agent\distill_watchdog.py
+H:\Agent\ft-distill\.venv\Scripts\python.exe H:\Agent\FuPeng-Agent\FuPeng-Agent\distill_watchdog.py
 ```
 
 ### 蒸馏规范
