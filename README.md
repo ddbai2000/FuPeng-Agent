@@ -43,5 +43,7 @@ H:\Agent\ft-distill\.venv\Scripts\python.exe H:\Agent\fu-peng-agent\distill_watc
 ## 现有技能（去重基准）
 super-cycle-gears / liquidity-shrink-circle / deglobal-mirror-cycle / debt-tax-demographic-cycle / china-numerator-us-denominator / tech-cycle-credit-shock / cash-cow-spread-flip / realty-k-shrink-core / crypto-major-asset / fed-era-shift / witness-countercurrent / ai-capex-proof-period
 
+**综合总纲（对齐目标）**：`fupeng-perspective`（lianyanshe-ai 仓库版，入口总纲 + 模型6 情景证伪方法论）。新蒸馏的视频/书籍若与其路由表某主题重合 → 并入对应单主题 skill（见该 skill 路由总表），并把增量同步进 `fupeng-perspective` 对应模型的指针行，保持仓库版与自蒸馏版逐步对齐。
+
 ## 书籍投喂
 把书（pdf/docx/txt/epub）丢进 `books/pending/`，Job2 看门狗会列出；agent 用 ocr-and-documents / pdf 技能提取文本后蒸馏。
