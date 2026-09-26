@@ -1,0 +1,36 @@
+{
+  "proxy": "http://127.0.0.1:10808",
+  "yt_dlp": "C:\\Users\\BYY\\.local\\bin\\yt-dlp.exe",
+  "venv_python": "H:\\Agent\\ft-distill\\.venv\\Scripts\\python.exe",
+  "asr_script": "H:\\Agent\\ft-distill\\transcribe.py",
+  "whisper_model": "small",
+  "whisper_threads": 6,
+  "state_file": "state.json",
+  "audio_dir": "audio",
+  "transcript_dir": "transcripts",
+  "max_new_per_run": 5,
+  "max_concurrent_asr": 2,
+  "min_duration_sec": 90,
+  "sources": {
+    "youtube": {
+      "channel_ids": ["UCb_4xq1KgaYkGtxpjkoZrtQ"],
+      "search_queries": ["付鹏 闭门会", "付鹏 分享会", "付鹏 演讲"],
+      "search_limit_per_query": 12,
+      "search_url_tpl": "https://www.youtube.com/results?search_query={q}&sp=CAM%3D",
+      "channel_url_tpl": "https://www.youtube.com/channel/{cid}/videos"
+    },
+    "bilibili": {
+      "uids": [662660667],
+      "search_queries": ["付鹏", "付鹏 闭门会"],
+      "search_limit_per_query": 10,
+      "search_url_tpl": "https://search.bilibili.com/all?keyword={q}&order=pubdate",
+      "video_url_tpl": "https://www.bilibili.com/video/{bvid}",
+      "cookie_file": "cookies/bili_cookies.txt"
+    },
+    "douyin": {
+      "cookie_file": "cookies/douyin_cookies.txt",
+      "note": "无cookie无法下载; 把链接写入 pending_links.txt (一行一个, #开头为注释), collect.py 自动读取"
+    }
+  },
+  "pending_links_file": "pending_links.txt"
+}

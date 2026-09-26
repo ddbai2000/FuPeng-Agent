@@ -1,0 +1,15 @@
+# 投喂链接（一行一个；# 开头为注释；抖音/YouTube/B站 直链皆可）
+# 用法：把链接贴进来，下次 collect.py 运行自动发现下载；处理完会追加 processed 标记
+# 抖音示例：https://www.douyin.com/video/73xxxxxxxxxxxxxxxxx
+# YouTube 示例：https://www.youtube.com/watch?v=XXXXXXXXX
+# B站 示例：https://www.bilibili.com/video/BVxxxxxxxxxx
+
+# processed at 2026-09-26T12:40:02.474000
+
+# processed at 2026-09-26T12:41:45.736211
+
+# processed at 2026-09-26T12:58:16.083959
+
+# processed at 2026-09-26T12:59:08.848589
+
+# processed at 2026-09-26T13:01:39.777755

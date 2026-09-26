@@ -1,0 +1,15 @@
+# 运行时产物（本地自动生成，勿提交）
+audio/
+transcripts/
+__pycache__/
+*.pyc
+state.json
+state.json.tmp
+state.json.lock
+
+# 敏感文件（cookies 勿上库）
+cookies/
+
+# 系统垃圾
+Thumbs.db
+.DS_Store
