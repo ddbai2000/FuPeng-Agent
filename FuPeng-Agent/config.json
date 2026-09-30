@@ -11,6 +11,7 @@
   "max_new_per_run": 5,
   "max_concurrent_asr": 2,
   "min_duration_sec": 90,
+  "lookback_days": 7,
   "sources": {
     "youtube": {
       "channel_ids": ["UCb_4xq1KgaYkGtxpjkoZrtQ"],

@@ -236,6 +236,56 @@ def start_asr(cfg, item, local, dry_run=False):
     log(f"  [ASR] {item['key']} pid={p.pid} -> {os.path.basename(out)}")
     return meta
 
+def filter_lookback(cfg, items):
+    """只保留上传日期在 lookback_days 窗口内的 youtube 候选（搜索易冒出老旧视频）。
+
+    B站搜索已按 pubdate、抖音创作者主页按最新排序，天然近期 → 放行；
+    人工投喂(manual)是用户明确链接 → 放行。仅 youtube 需硬日期过滤。
+    分块批量取 upload_date（每块24条，覆盖全部候选）；
+    日期查到且在窗口外 → 丢弃；查不到日期（yt-dlp 偶发truncated/风控）→ 保守保留，
+    交给下游 seen 去重挡住重复老视频。lookback_days<=0 时不过滤。
+    """
+    days = int(cfg.get("lookback_days", 0))
+    if days <= 0 or not items:
+        return items
+    cutoff = (datetime.datetime.now() - datetime.timedelta(days=days)).strftime("%Y%m%d")
+    yt = [it for it in items if it.get("platform") == "youtube"]
+    others = [it for it in items if it.get("platform") != "youtube"]
+    if not yt:
+        return items
+    # 收集全部去重 URL，分块批量取 upload_date
+    urls, seen_u = [], set()
+    for it in yt:
+        if it["url"] not in seen_u:
+            seen_u.add(it["url"]); urls.append(it["url"])
+    id2date = {}
+    for s in range(0, len(urls), 24):          # 分块，覆盖全部候选
+        chunk = urls[s:s+24]
+        rc, out, err = run_ytdlp(["--no-playlist", "--print", "%(id)s|%(upload_date)s"] + chunk,
+                                 cfg, proxy=True, timeout=300)
+        for line in out.splitlines():
+            if "|" in line:
+                v, d = line.split("|", 1)
+                if d and d != "NA":
+                    id2date[v] = d
+    kept, dropped, nodate = 0, 0, 0
+    out_items = []
+    for it in yt:
+        m = re.search(r"watch\?v=([\w-]+)", it["url"])
+        vid = m.group(1) if m else it["key"].split(":", 1)[-1]
+        d = id2date.get(vid)
+        if d is None:
+            kept += 1; nodate += 1             # 查不到日期 → 保守保留
+        elif d >= cutoff:
+            kept += 1
+        else:
+            dropped += 1
+            log(f"  [lookback] 跳过 {vid} (upload={d}, 窗口={cutoff}起)")
+            continue
+        out_items.append(it)
+    log(f"  [lookback] youtube {len(yt)} -> {kept}（近{days}天）；丢过期 {dropped}，未知日期保留 {nodate}；其余 {len(others)} 放行")
+    return out_items + others
+
 def main():
     dry_run = "--dry-run" in sys.argv
     no_asr = "--no-asr" in sys.argv
@@ -292,6 +342,10 @@ def main():
         new_items += collect_pending_links(cfg)
     except Exception as e:
         log(f"pending_links 异常: {e}")
+
+    # 时间窗过滤（lookback_days，默认7天；0=不过滤）
+    if int(cfg.get("lookback_days", 0)) > 0:
+        new_items = filter_lookback(cfg, new_items)
 
     active_keys = {m["key"] for m in state["asr_jobs"] if m.get("status") in ("running", "queued")}
     for k in list(active_keys):
