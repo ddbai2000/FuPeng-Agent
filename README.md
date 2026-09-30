@@ -1,6 +1,6 @@
 # 付鹏经济 Agent（FuPeng Agent）
 
-> ⏱ **最后更新：2026-09-30 08:05**（管线自动同步 · 采集周期·一周时间窗: lookback_days=7 过滤(youtube 102→2), 新下载 ullqcN2K9Sc+xcwBxeojxvM 入队, 接力 2 条 ASR; 代码 809f6cd 同步）
+> ⏱ **最后更新：2026-09-30 09:04**（管线自动同步 · 采集+ASR 周期（Job1 有动态））
 
 ## 项目简介
 
