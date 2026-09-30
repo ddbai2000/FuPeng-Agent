@@ -1,6 +1,6 @@
 # 付鹏经济 Agent（FuPeng Agent）
 
-> ⏱ **最后更新：2026-09-30 10:24**（管线自动同步 · docs/skills 安装说明修正: 本地技能自动注册(新会话扫描), agent skills audit 仅 hub 技能）
+> ⏱ **最后更新：2026-09-30 10:24**（管线自动同步 · docs/skills 安装说明修正: 本地技能自动注册(新会话扫描), skills audit 仅适用 hub 技能）
 
 ## 项目简介
 

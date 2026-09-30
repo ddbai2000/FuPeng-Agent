@@ -1,6 +1,6 @@
 # 老板们的人设 IP：金融市场"溢价"和"代价"（xcwBxeojxvM）
 
-转录：H:\Agent\FuPeng-Agent\FuPeng-Agent\transcripts\youtube_xcwBxeojxvM.txt（1272s，全文）
+转录：FuPeng-Agent/transcripts/youtube_xcwBxeojxvM.txt（仓库内相对路径，该目录 git 忽略、仅本地存在）（1272s，全文）
 
 ## 背景现象（[00:07-01:05]）
 近年名人尤其上市公司管理层疯狂做播客长视频采访、日更社媒、直播：

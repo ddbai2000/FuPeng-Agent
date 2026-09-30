@@ -51,8 +51,8 @@ def _hours_since(iso):
         return 9999
 
 def load_cfg():
-    with open(os.path.join(HERE, "config.json"), encoding="utf-8") as f:
-        return json.load(f)
+    # config.json(公开占位) + config.local.json(本地真实路径, git 忽略) 合并
+    return stateio.load_cfg()
 
 def run_ytdlp(args, cfg, proxy=False, timeout=300):
     cmd = [cfg["yt_dlp"]] + args

@@ -5,7 +5,7 @@
   meta: {key,title,platform,url,audio,transcript,status,...}
 
 职责：
-- 调 H:\\Agent\\ft-distill\\transcribe.py (faster-whisper small int8 cpu, 6线程)
+- 调本地 ASR 脚本 transcribe.py (faster-whisper small int8 cpu, 6线程, 真实路径见 config.local.json)
 - 完成后把 state.json 里该 job status: running -> done（带文件锁，防 collect 并发写）
 - 失败 -> status: failed（保留可重试）
 """
@@ -17,7 +17,7 @@ import stateio
 
 def main():
     meta = json.loads(sys.argv[1])
-    cfg = json.load(open(os.path.join(HERE, "config.json"), encoding="utf-8"))
+    cfg = stateio.load_cfg()
     audio = meta["audio"]
     out = meta["transcript"]
 

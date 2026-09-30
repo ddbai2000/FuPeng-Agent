@@ -1,7 +1,7 @@
 # 付鹏 Agent 技能备份（可移植）
 
-本目录备份 Agent 技能库中**本轮蒸馏产出**的 2 个新技能（含 SKILL.md + references/），
-保证技能随仓库可移植。技能本体运行于 `C:\Users\BYY\AppData\Local\agent\skills\finance\`，
+本目录备份 **agent 技能库**中**本轮蒸馏产出**的 2 个新技能（含 SKILL.md + references/），
+保证技能随仓库可移植。技能本体运行于本机的 agent 技能库（`finance/` 分类目录下），
 此处为只读副本。
 
 ## 清单
@@ -18,24 +18,24 @@
   references/source-*.txt     # 原视频转录节选（带 [MM:SS] 时间戳）
 ```
 
-## 同步到 Agent 技能库（可移植安装）
+## 同步到 agent 技能库（可移植安装）
 
-技能本体存放于 `finance/` 分类目录（本机 `C:\Users\BYY\AppData\Local\agent\skills\finance\`）。
-安装/回填命令（在 Agent Agent 环境，git-bash）：
+技能本体存放于 agent 技能库的 `finance/` 分类目录。安装/回填命令（git-bash，
+`SKILLS` 指向**你本机的 agent 技能库 finance 目录**，本机真实路径见
+`FuPeng-Agent/config.local.json` / `FuPeng-Agent/local.env` 的本地 overlay，不上库）：
 
 ```bash
-SKILLS="C:/Users/BYY/AppData/Local/agent/skills/finance"
+SKILLS="<本机 agent 技能库>/finance"
 # 把本仓库副本覆盖回技能库（cp -r 整目录，含 references/）
 cp -r docs/skills/emotion-value-cash-cow  "$SKILLS/"
 cp -r docs/skills/founder-ip-premium      "$SKILLS/"
 ```
 
-- **重新注册是自动的**：Agent 每个新会话自动扫描技能目录，放回即生效，无需手动命令。
-- ⚠️ `agent skills audit` **只用于 hub-installed 技能的安全扫描**，对本地手建技能报
-  `not a hub-installed skill`——**不要用它验证本地技能**；用 `skills_list`（看是否含该技能）或
-  `skill_view(name)` 确认已加载即可。
+- **重新注册是自动的**：agent 每个新会话自动扫描技能目录，放回即生效，无需手动命令。
+- ⚠️ 验证方式：用 agent 的 `skills_list`（看是否含该技能）或 `skill_view(name)` 确认已加载；
+  **不要**用 hub 技能安全审计命令验证本地手建技能（会报 `not a hub-installed skill`）。
 
-> 分类（finance）仅为目录分组，不影响可加载性；`agent skills` 以目录名注册技能，
+> 分类（finance）仅为目录分组，不影响可加载性；agent 以目录名注册技能，
 > 故须保持 `finance/<skill>/SKILL.md` 结构。
 
 ## 版本

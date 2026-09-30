@@ -50,6 +50,16 @@ def load_state():
     except Exception:
         return _norm(json.loads(json.dumps(DEFAULT)))
 
+def load_cfg():
+    """config.json（公开占位）+ config.local.json（本地 git-ignored 真实路径）合并，overlay 优先。"""
+    with open(os.path.join(HERE, "config.json"), encoding="utf-8") as f:
+        cfg = json.load(f)
+    lp = os.path.join(HERE, "config.local.json")
+    if os.path.exists(lp):
+        with open(lp, encoding="utf-8") as f:
+            cfg.update(json.load(f))
+    return cfg
+
 def atomic_update(mutate_fn):
     """锁内 读-改-写。mutate_fn(d)->None 原地改 d（基于磁盘最新状态）。"""
     lh = _open_lock()

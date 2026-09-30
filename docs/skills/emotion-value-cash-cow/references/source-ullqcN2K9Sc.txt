@@ -1,6 +1,6 @@
 # 王者荣耀→AI 漫剧：休闲注意力迁移（ullqcN2K9Sc）
 
-转录：H:\Agent\FuPeng-Agent\FuPeng-Agent\transcripts\youtube_ullqcN2K9Sc.txt（254s）
+转录：FuPeng-Agent/transcripts/youtube_ullqcN2K9Sc.txt（仓库内相对路径，该目录 git 忽略、仅本地存在）（254s）
 
 ## 现象（付鹏亲身调研）
 - [00:00-01:04] 群里喊开黑（王者荣耀）"没几个人回应"，很无聊打了一把；身边原天天打卡开黑的朋友"开不动了"，等级停在几十个赛季前，"没人再拼断尾（段位）"，大家在沙发上刷 AI 漫剧/短剧（几十秒一局，开局反杀/末日/穿越，男女品全有，"足够让你爽"）。

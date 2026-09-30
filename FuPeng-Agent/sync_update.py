@@ -4,12 +4,12 @@
 - 更新仓库根 README.md 顶部「最后更新」行（无则插入 H1 后）
 - 追加 UPDATE_LOG.md（更新日志）
 - 写 state.json last_sync
-git commit/push 由 sync_update.sh 负责（调用 gh_deploy_fupeng.sh）。
+git commit/push 由 sync_update.sh 负责（调用 FuPeng-Agent/deploy_push.sh）。
 """
 import datetime, os, re, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.dirname(HERE)                      # H:\Agent\FuPeng-Agent
+ROOT = os.path.dirname(HERE)                      # 仓库根目录
 sys.path.insert(0, HERE)
 
 msg = sys.argv[1] if len(sys.argv) > 1 else "采集/蒸馏周期"

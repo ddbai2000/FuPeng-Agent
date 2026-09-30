@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 # FuPeng Agent — 周期结束钩子：更新 GitHub 显示时间戳 + commit + push。
 # 用法: bash sync_update.sh "<本周期说明>"
-# 无变化时 NO_UPDATE 跳过；推送经 gh_deploy_fupeng.sh（GCM token + v2rayN 代理 10808）。
+# 无变化时 NO_UPDATE 跳过；推送经 FuPeng-Agent/deploy_push.sh（GCM token + 本地代理，代理可经 local.env 的 PROXY 覆盖）。
 set -u
-cd /h/Agent/FuPeng-Agent || exit 1
+cd "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)" || exit 1
+[ -f FuPeng-Agent/local.env ] && . FuPeng-Agent/local.env
+PY="${PY:-python}"
 MSG="${1:-采集/蒸馏周期}"
-PY=python
 
 "$PY" FuPeng-Agent/sync_update.py "$MSG" || exit 1
 
@@ -20,6 +21,6 @@ RC=$?
 if [ "$RC" -eq 0 ]; then
   echo "SYNC_DONE 已推送 FuPeng-Agent@main，README 顶部「最后更新」已刷新"
 else
-  echo "PUSH_FAILED rc=$RC（token 失效或代理不可用，检查 gh_deploy_fupeng.sh 日志）"
+  echo "PUSH_FAILED rc=$RC（token 失效或代理不可用，检查 FuPeng-Agent/deploy_push.sh 日志）"
 fi
 exit "$RC"

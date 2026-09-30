@@ -1,8 +1,9 @@
 {
   "proxy": "http://127.0.0.1:10808",
-  "yt_dlp": "C:\\Users\\BYY\\.local\\bin\\yt-dlp.exe",
-  "venv_python": "H:\\Agent\\ft-distill\\.venv\\Scripts\\python.exe",
-  "asr_script": "H:\\Agent\\ft-distill\\transcribe.py",
+  "_comment": "yt_dlp/venv_python/asr_script 为占位路径，真实值由本地 config.local.json 覆盖（git 忽略）",
+  "yt_dlp": "yt-dlp",
+  "venv_python": "python",
+  "asr_script": "transcribe.py",
   "whisper_model": "small",
   "whisper_threads": 6,
   "state_file": "state.json",

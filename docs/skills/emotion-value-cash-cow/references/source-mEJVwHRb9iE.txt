@@ -1,6 +1,6 @@
 # 泡泡玛特/段永平对谈全文要点（mEJVwHRb9iE，49 分钟，访谈播客）
 
-转录：H:\Agent\FuPeng-Agent\FuPeng-Agent\transcripts\youtube_mEJVwHRb9iE.txt
+转录：FuPeng-Agent/transcripts/youtube_mEJVwHRb9iE.txt（仓库内相对路径，该目录 git 忽略、仅本地存在）
 
 ## 背景
 - 去年 7 月泡泡玛特股价近 300 时付鹏判断"新消费品牌火不过三年"，不太看好；现跌到 160 多。

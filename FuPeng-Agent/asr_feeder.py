@@ -107,7 +107,7 @@ def one_pass(cfg, max_slots, pid_alive, audio_ok, transcript_ok, launch, load_st
 
 def main():
     max_slots = int(sys.argv[1]) if len(sys.argv) > 1 else 2
-    cfg = json.load(open(os.path.join(HERE, "config.json"), encoding="utf-8"))
+    cfg = stateio.load_cfg()
     audio_ok = lambda path: _audio_ok(cfg, path)
     idle_poll = 15
     while True:
