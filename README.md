@@ -1,6 +1,6 @@
 # 付鹏经济 Agent（FuPeng Agent）
 
-> ⏱ **最后更新：2026-09-30 09:04**（管线自动同步 · 采集+ASR 周期（Job1 有动态））
+> ⏱ **最后更新：2026-09-30 10:15**（管线自动同步 · 蒸馏循环: asr_feeder排空积压(done=21/fail=0), 13条转录→并入5技能(liquidity-shrink-circle/debt-tax-demographic-cycle/fed-era-shift/all-weather-trading, 各加references指针)+新建2技能(emotion-value-cash-cow泡泡玛特现金奶牛 / founder-ip-premium人设IP溢价), fupeng-perspective路由挂新技能, asr_jobs全done, distilled累计=31）
 
 ## 项目简介
 
