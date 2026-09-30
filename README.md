@@ -1,6 +1,6 @@
 # 付鹏经济 Agent（FuPeng Agent）
 
-> ⏱ **最后更新：2026-09-30 10:20**（管线自动同步 · 技能备份: docs/skills 落 2 个新技能副本(emotion-value-cash-cow泡泡玛特现金奶牛 / founder-ip-premium人设IP溢价, 含SKILL.md+references)+ 可移植安装清单; distill_watchdog自检NO_WORK, asr_jobs全done）
+> ⏱ **最后更新：2026-09-30 10:24**（管线自动同步 · docs/skills 安装说明修正: 本地技能自动注册(新会话扫描), agent skills audit 仅 hub 技能）
 
 ## 项目简介
 
