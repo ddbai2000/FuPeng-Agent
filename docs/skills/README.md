@@ -20,22 +20,23 @@
 
 ## 同步到 Agent 技能库（可移植安装）
 
-技能本体存放于 `finance/` 分类目录。安装/更新命令（在 Agent Agent 环境）：
+技能本体存放于 `finance/` 分类目录（本机 `C:\Users\BYY\AppData\Local\agent\skills\finance\`）。
+安装/回填命令（在 Agent Agent 环境，git-bash）：
 
 ```bash
-# 目标：Agent 全局技能目录（Windows 本机）
 SKILLS="C:/Users/BYY/AppData/Local/agent/skills/finance"
-
-# 把本仓库副本覆盖回技能库
+# 把本仓库副本覆盖回技能库（cp -r 整目录，含 references/）
 cp -r docs/skills/emotion-value-cash-cow  "$SKILLS/"
 cp -r docs/skills/founder-ip-premium      "$SKILLS/"
-
-# 让 Agent 重新注册（可选；新会话自动扫描）
-agent skills audit
 ```
 
-> 注意：`agent skills` 以目录名注册技能，故须保持 `finance/<skill>/SKILL.md` 结构；
-> 分类（finance）仅为分组，不影响可加载性。
+- **重新注册是自动的**：Agent 每个新会话自动扫描技能目录，放回即生效，无需手动命令。
+- ⚠️ `agent skills audit` **只用于 hub-installed 技能的安全扫描**，对本地手建技能报
+  `not a hub-installed skill`——**不要用它验证本地技能**；用 `skills_list`（看是否含该技能）或
+  `skill_view(name)` 确认已加载即可。
+
+> 分类（finance）仅为目录分组，不影响可加载性；`agent skills` 以目录名注册技能，
+> 故须保持 `finance/<skill>/SKILL.md` 结构。
 
 ## 版本
 
