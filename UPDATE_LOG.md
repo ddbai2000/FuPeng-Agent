@@ -11,3 +11,4 @@
 - **2026-09-30 10:20** — 技能备份: docs/skills 落 2 个新技能副本(emotion-value-cash-cow泡泡玛特现金奶牛 / founder-ip-premium人设IP溢价, 含SKILL.md+references)+ 可移植安装清单; distill_watchdog自检NO_WORK, asr_jobs全done
 - **2026-09-30 10:24** — docs/skills 安装说明修正: 本地技能自动注册(新会话扫描), skills audit 仅适用 hub 技能
 - **2026-10-09 23:25** — 第15批技能 au-property-housing-cycle（澳新出清高潮）+ 三方协议/清单同步 + Codex 侧采集留痕
+- **2026-10-01 11:50** — 采集+ASR 周期（Job1 有动态）
