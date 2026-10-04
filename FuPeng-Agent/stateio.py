@@ -65,12 +65,8 @@ def atomic_update(mutate_fn):
     lh = _open_lock()
     _lock(lh)  # 阻塞直到拿到锁
     try:
-        with open(STATE_PATH, encoding="utf-8") as f:
-            try:
-                data = json.load(f)
-            except Exception:
-                data = json.loads(json.dumps(DEFAULT))
-        data = _norm(data)
+        # state.json 不存在时从 DEFAULT 起步（首次 collect 尚未落盘的情况）
+        data = load_state()
         mutate_fn(data)
         tmp = STATE_PATH + ".tmp"
         with open(tmp, "w", encoding="utf-8") as f:
