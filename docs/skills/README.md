@@ -1,6 +1,6 @@
 # 付鹏 Agent 技能备份（可移植）
 
-本目录备份 **agent 技能库**中**本轮蒸馏产出**的 2 个新技能（含 SKILL.md + references/），
+本目录备份 **agent 技能库**中**本轮蒸馏产出**的新技能（含 SKILL.md + references/），
 保证技能随仓库可移植。技能本体运行于本机的 agent 技能库（`finance/` 分类目录下），
 此处为只读副本。
 
@@ -10,6 +10,9 @@
 |---|---|---|
 | `emotion-value-cash-cow/` | 蒸馏自 `mEJVwHRb9iE`（泡泡玛特/段永平对谈）+ `ullqcN2K9Sc`（游戏→AI漫剧注意力迁移） | 情绪价值商品=现金奶牛×短周期；投效比/复购/客群画像三敏感数据 |
 | `founder-ip-premium/` | 蒸馏自 `xcwBxeojxvM`（老板人设 IP） | 老板的嘴=带杠杆金融衍生工具；溢价与零容错代价 |
+| `ai-frontier-governance-node/` | 蒸馏自 `YYDOruQriEM`（Anthropic 前沿 AI 警告） | 前沿 AI 治理临界点：BSL 分级+代码比病毒难防+智能 AI 会伪装+治理核武器化 |
+| `au-property-housing-cycle/` | 蒸馏自 `v86YxyUYeYs`（双杀备忘录·澳新出清高潮） | 做空澳新 10 年复盘：影子监管真空+高房贷侵蚀居民+汇率化解债务+居民生产力底线 |
+86YxyUYeYs（双杀备忘录·澳新出清高潮） | 做空澳新 10 年复盘：影子监管真空+高房贷侵蚀居民+汇率化解债务+居民生产力底线 |
 
 每个技能目录结构：
 ```
@@ -40,5 +43,6 @@ cp -r docs/skills/founder-ip-premium      "$SKILLS/"
 
 ## 版本
 
-- 备份时间：2026-09-30 10:15（蒸馏循环第 13 批产出）
+- 备份时间：2026-10-09（第 15 批：au-property-housing-cycle 澳新出清高潮；ai-frontier-governance-node 见 2026-10-04 第 14 批）
 - 上游来源：付鹏 2026 YouTube 系列（详见各 SKILL.md 头部"来源"行）
+
