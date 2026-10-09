@@ -10,3 +10,4 @@
 - **2026-09-30 10:15** — 蒸馏循环: asr_feeder排空积压(done=21/fail=0), 13条转录→并入5技能(liquidity-shrink-circle/debt-tax-demographic-cycle/fed-era-shift/all-weather-trading, 各加references指针)+新建2技能(emotion-value-cash-cow泡泡玛特现金奶牛 / founder-ip-premium人设IP溢价), fupeng-perspective路由挂新技能, asr_jobs全done, distilled累计=31
 - **2026-09-30 10:20** — 技能备份: docs/skills 落 2 个新技能副本(emotion-value-cash-cow泡泡玛特现金奶牛 / founder-ip-premium人设IP溢价, 含SKILL.md+references)+ 可移植安装清单; distill_watchdog自检NO_WORK, asr_jobs全done
 - **2026-09-30 10:24** — docs/skills 安装说明修正: 本地技能自动注册(新会话扫描), skills audit 仅适用 hub 技能
+- **2026-10-09 23:25** — 第15批技能 au-property-housing-cycle（澳新出清高潮）+ 三方协议/清单同步 + Codex 侧采集留痕
