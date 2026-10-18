@@ -1,6 +1,6 @@
 # 付鹏经济 Agent（FuPeng Agent）
 
-> ⏱ **最后更新：2026-10-18 17:24**（管线自动同步 · 蒸馏周期（Job2 蒸馏 3 条：新建 ai-safety-nuclear-moment + nobel-expectations-real-money，诺奖两场次并入同技能，fupeng-perspective 路由 +2 行））
+> ⏱ **最后更新：2026-10-18 17:38**（管线自动同步 · 第16批收尾：判重并入 + docs/skills 清单对齐）
 
 ## 项目简介
 

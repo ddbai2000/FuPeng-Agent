@@ -18,3 +18,4 @@
 - **2026-10-15 13:34** — 采集+ASR 周期（Job1 有动态）
 - **2026-10-18 17:22** — 采集+ASR 周期（Job1 有动态）
 - **2026-10-18 17:24** — 蒸馏周期（Job2 蒸馏 3 条：新建 ai-safety-nuclear-moment + nobel-expectations-real-money，诺奖两场次并入同技能，fupeng-perspective 路由 +2 行）
+- **2026-10-18 17:38** — 第16批收尾：判重并入 + docs/skills 清单对齐
