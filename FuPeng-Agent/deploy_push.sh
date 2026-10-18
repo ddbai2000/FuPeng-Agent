@@ -11,6 +11,7 @@ REPO="ddbai2000/FuPeng-Agent"
 ORIG=$(git config --global --get url.git@github.com:.insteadOf || echo "__NONE__")
 
 # --- GCM 凭据落到临时文件（token 可能含 # 等特殊字符，绝不能走 shell 变量展开）---
+# 注意：$PY 是原生 Windows python（venv），MSYS 路径必须经 cygpath -w 转成 Windows 路径
 mkdir -p "$HOME/.cache"
 CREDF="$HOME/.cache/fupeng_github_creds"
 TOKF="$HOME/.cache/fupeng_github_token"
@@ -18,7 +19,7 @@ USEF="$HOME/.cache/fupeng_github_user"
 printf 'protocol=https\nhost=github.com\n\n' | GIT_TERMINAL_PROMPT=0 git credential fill > "$CREDF" 2>/dev/null
 [ -s "$CREDF" ] || { echo "CRED_FILL_FAILED"; exit 4; }
 
-"$PY" - "$CREDF" "$TOKF" "$USEF" <<'PYEOF'
+"$PY" - "$(cygpath -w "$CREDF")" "$(cygpath -w "$TOKF")" "$(cygpath -w "$USEF")" <<'PYEOF'
 import sys
 cred_file, tok_file, user_file = sys.argv[1], sys.argv[2], sys.argv[3]
 token, user = "", "ddbai2000"
