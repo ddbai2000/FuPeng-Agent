@@ -43,7 +43,8 @@ def main():
                 continue
             if not det.get("valid"):
                 continue
-            probs = det["probs"]
+            probs = {mn: {k: float(v) for k, v in pv.items()}
+                     for mn, pv in det["probs"].items()}
             tops = {}
             for name, p in probs.items():
                 order = ["home", "draw", "away"] if sport == "football" else ["home", "away"]
@@ -62,7 +63,7 @@ def main():
         key = f"{r['date']}|{r['sport']}|{r['home']}|{r['away']}"
         snap["items"][key] = r
     with open(f"reports/predictions/pred_{stamp}.json", "w", encoding="utf-8") as f:
-        json.dump(snap, f, ensure_ascii=False, indent=1)
+        json.dump(snap, f, ensure_ascii=False, indent=1, default=float)
 
     # 人读报告
     def pct(x): return f"{x*100:.0f}%"
