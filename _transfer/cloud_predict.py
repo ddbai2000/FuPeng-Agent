@@ -27,8 +27,10 @@ def main():
     fitted = _fit_all(cfg)
 
     rows = []
+    from datetime import timedelta
+    tomorrow = (datetime.now(BJ) + timedelta(days=1)).strftime("%Y-%m-%d")
     for sport in ("football", "basketball"):
-        matches = fetch_espn_matches(today, sport)
+        matches = fetch_espn_matches(today, sport) + fetch_espn_matches(tomorrow, sport)
         for m in matches:
             if not is_predictable_league(m.league):
                 continue
